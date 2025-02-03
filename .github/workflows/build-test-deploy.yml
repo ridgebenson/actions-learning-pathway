@@ -25,3 +25,14 @@ jobs:
           node-version: '18.x'
       - run: npm install
       - run: npm run lint
+  deploy:
+    needs: test
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    environment:
+      name: production
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
